@@ -43,6 +43,8 @@ def data_transformation(messy_data:pd.DataFrame)->pd.DataFrame:
   import numpy as np
   from datetime import datetime
 
+  ## copy the messy data:
+  df=messy_data.copy()
   ## transform the data
   df["subscribe"]=df["subscribe"].replace(["yes","no"],[1,0])
   df["contact"]=df["contact"].fillna("no_phone")
