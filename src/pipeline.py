@@ -60,3 +60,64 @@ def data_transformation(messy_data:pd.DataFrame)->pd.DataFrame:
 
   
   return df
+
+@task(
+  name="load_data",
+  task_name="load_data",
+  description="Load the data into the desired final destination
+)
+def load_data(transformed_data:pd.DataFrame):
+  """
+  Extract the data 
+     ***
+     ***
+     ***
+Transform the data
+     ***
+     ***
+     ***
+Load the data  into final destination
+"""
+  import hopsworks
+  import os
+  import pandas as pd
+  from dotenv import load_dotenv
+
+
+  load_dotenv()
+
+
+  project_name=os.getenv("PROJECT_NAME")
+
+  api_key=os.getenv("API_KEY")
+
+  project=hopsworks.login(
+    project=project_name,
+    api_key_value=api_key
+)
+
+
+  ## create the feature store:
+  feature_store=project.get_feature_store()
+
+  ## create the feature group:
+  feature_group_name="bank_marketing_group"
+
+  feature_group_version=1
+
+
+  feature_group_description="The bank marketing feature group"
+
+
+  ## create the feature group:
+  feature_group=feature_store.get_or_create_feature_group(
+    name=feature_group_name,
+    version=feature_group_version,
+    description=feature_group_description,
+    primary_key=['user_id'],
+    event_time=['datetime']
+)
+
+
+
+  feature_group.insert(df,write_options={"wait_for_job":False})
