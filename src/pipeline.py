@@ -129,3 +129,5 @@ def etl_pipeline():
   transformed_data=data_transformation(extracted_data)
   load_data(transformed_data)
 
+if __name__=="__main__":
+  etl_pipeline()
