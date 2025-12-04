@@ -121,3 +121,11 @@ Load the data  into final destination
 
 
   feature_group.insert(df,write_options={"wait_for_job":False})
+
+@flow
+def etl_pipeline():
+
+  extracted_data=data_extraction
+  transformed_data=data_transformation(extracted_data)
+  load_data(transformed_data)
+
