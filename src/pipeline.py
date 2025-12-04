@@ -57,4 +57,6 @@ def data_transformation(messy_data:pd.DataFrame)->pd.DataFrame:
   
   df['user_id']=arr_index
   df['datetime']=current_time
+
   
+  return df
