@@ -108,6 +108,8 @@ Load the data  into final destination
 
   feature_group_description="The bank marketing feature group"
 
+  feature_view_name="bank_view"
+
 
   ## create the feature group:
   feature_group=feature_store.get_or_create_feature_group(
@@ -118,6 +120,14 @@ Load the data  into final destination
     event_time=['datetime']
 )
 
+
+  ## create the feature view:
+  feature_view=feature_store.get_or_create_feature_view(
+    name=feature_view_name,
+    version=1,
+   labels=[]
+    query,
+  logging_enabled=True)
 
 
   feature_group.insert(df,write_options={"wait_for_job":False})
